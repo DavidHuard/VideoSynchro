@@ -245,8 +245,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U3626S5B6B;
 				ENABLE_HARDENED_RUNTIME = YES;
-				HEADER_SEARCH_PATHS = "/usr/local/Cellar/opencv/4.5.0/include/**";
-				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/opencv/4.5.0/lib/**";
+				HEADER_SEARCH_PATHS = "/usr/local/Cellar/opencv/4.5.0_2/include/**";
+				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/opencv/4.5.0_2/lib/**";
 				OTHER_LDFLAGS = (
 					"-I/usr/local/Cellar/opencv/4.5.0/include/opencv4",
 					"-L/usr/local/Cellar/opencv/4.5.0/lib",
@@ -315,8 +315,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = U3626S5B6B;
 				ENABLE_HARDENED_RUNTIME = YES;
-				HEADER_SEARCH_PATHS = "/usr/local/Cellar/opencv/4.5.0/include/**";
-				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/opencv/4.5.0/lib/**";
+				HEADER_SEARCH_PATHS = "/usr/local/Cellar/opencv/4.5.0_2/include/**";
+				LIBRARY_SEARCH_PATHS = "/usr/local/Cellar/opencv/4.5.0_2/lib/**";
 				OTHER_LDFLAGS = (
 					"-I/usr/local/Cellar/opencv/4.5.0/include/opencv4",
 					"-L/usr/local/Cellar/opencv/4.5.0/lib",

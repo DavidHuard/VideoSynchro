@@ -27,7 +27,7 @@ int main(int argc, const char * argv[]) {
     struct stat t_stat_D;
     struct stat t_stat_G;
     stat("/Users/davidhuard/Desktop/IMG_1289.MOV", &t_stat_D);
-    stat("/Users/davidhuard/Desktop/IMG_1289.MOV", &t_stat_G);
+    stat("/Users/davidhuard/Desktop/IMG_0015.MOV", &t_stat_G);
     struct tm * timeinfo_D = localtime(&t_stat_D.st_ctime);
     struct tm * timeinfo_G = localtime(&t_stat_G.st_ctime);
     printf("Image D time and date: %s", asctime(timeinfo_D));
@@ -95,9 +95,9 @@ int main(int argc, const char * argv[]) {
             {
                 images_G.push_back(image_G.clone());
             }
-            imshow( "hello", image_G );
-         if (waitKey(100) >= 0)
-             break;
+          //  imshow( "hello", image_G );
+        // if (waitKey(100) >= 0)
+          //   break;
         }
         
         cout << images_G.size() << endl;
@@ -115,7 +115,7 @@ int main(int argc, const char * argv[]) {
         cout << images_G[0].size() << endl;
         cout << images_D[0].size() << endl;
         
-        Rect region_of_interest = Rect(images_D[0].cols/3, images_D[0].rows/3, images_D[0].cols/3, images_D[0].rows/3);
+        Rect region_of_interest = Rect(images_D[0].cols/8, images_D[0].rows/8, images_D[0].cols*0.75, images_D[0].rows*0.75);
         Mat images_D_roi = images_D[0](region_of_interest);
         
         double maxScore = 0;
@@ -148,15 +148,15 @@ int main(int argc, const char * argv[]) {
            // string filename = "/Users/davidhuard/Desktop/test/Image" + to_string(i) + ".png";
            // cv::imwrite(filename.c_str(), images_G[i]);
         //}
-       // imshow( "hi", images_D_roi);
-       // cout << images_D_roi.cols << " - " << images_D_roi.rows << endl;
+        // imshow( "hi", images_D_roi);
+        // cout << images_D_roi.cols << " - " << images_D_roi.rows << endl;
         double timeCut = imageID*fpsG/1000;
         
         double timeCutrounded = std::floor((timeCut * 100) + .5) / 100;
         
         cout << "MaxAtID: " << timeCutrounded << endl;
         
-        string time = "/usr/local/bin/ffmpeg -i /Users/davidhuard/Desktop/IMG_0015.MOV -ss 00:00:"+ to_string(timeCutrounded) +" -async 1 /Users/davidhuard/Desktop/IMG_1289_out.MOV";
+        string time = "/usr/local/bin/ffmpeg -i /Users/davidhuard/Desktop/IMG_0015.MOV -ss 00:00:"+ to_string(timeCutrounded) +" -async 1 /Users/davidhuard/Desktop/IMG_0015_out.MOV";
         
         system(time.c_str());
     }
@@ -164,6 +164,18 @@ int main(int argc, const char * argv[]) {
     
     
    //system("/usr/local/bin/ffmpeg -i /Users/davidhuard/Desktop/IMG_1289.MOV -ss 00:00:01.100 -t 00:00:01.500 -async 1 /Users/davidhuard/Desktop/IMG_1289_out.MOV");
-    waitKey(0);
+   // waitKey(0);
+    
+    //system("/usr/local/bin/ffmpeg -i /Users/davidhuard/Desktop/IMG_0015.MOV -vf \"[in] scale=iw/2:ih/2, pad=2*iw:ih [left]; movie=/Users/davidhuard/Desktop/IMG_1286.MOV, scale=iw/3:ih/3, fade=out:300:30:alpha=1 [right]; [left][right] overlay=main_w/2:0 [out]\" -b:v 768k /Users/davidhuard/Desktop/sbs.MOV");
+    
+   // system("/usr/local/bin/ffmpeg -i /Users/davidhuard/Desktop/IMG_0015.MOV -vf \"movie=/Users/davidhuard/Desktop/IMG_0015.MOV [in1]; [in]pad=3*iw:ih[in0]; [in0][in1] overlay=main_w/2:0 [out]\" /Users/davidhuard/Desktop/sbs.MOV");
+    waitKey(100);
+    
+    //system("/usr/local/bin/ffmpeg -i /Users/davidhuard/Desktop/IMG_1286.MOV -vf scale=720:960 /Users/davidhuard/Desktop/IMG_1286_res.MOV");
+    
+    waitKey(100);
+    
+    system("/usr/local/bin/ffmpeg -i /Users/davidhuard/Desktop/IMG_0015_out.MOV -i /Users/davidhuard/Desktop/IMG_1286_res.MOV -filter_complex '[0:v]pad=iw*2:ih[int];[int][1:v]overlay=W/2:0[vid]' -map [vid] -c:v libx264 -crf 23 -preset veryfast /Users/davidhuard/Desktop/sbsSync.MOV");
+    
     return 0;
 }
